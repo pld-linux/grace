@@ -11,7 +11,7 @@ Source1:	xmgrace
 Source2:	fftw.tar.gz
 Patch0:		%{name}.perl.patch
 Icon:		%{name}.gif
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ExclusiveArch:	i386 alpha
 Group:		Applications/Math
 Summary:	Numerical Data Processing and Visualization Tool (grace)
