@@ -2,7 +2,7 @@ Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl):	Narzêdzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
 Version:	5.1.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -11,10 +11,9 @@ Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.g
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-HOME-ETC.patch
 Patch2:		%{name}-PDFlib.patch
-Patch3:		%{name}-FFTW.patch
+Patch3:		%{name}-etc.patch
 URL:		http://plasma-gate.weizmann.ac.il/Grace/
 BuildRequires:	fftw-devel
-BuildRequires:	zlib-devel >= 1.0.3
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 0.9.6
 BuildRequires:	libtiff-devel
@@ -22,14 +21,16 @@ BuildRequires:	pdflib-devel >= 3.0
 BuildRequires:	lesstif-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	Xbae-devel
+BuildRequires:	XmHTML-devel >= 1.1.5
+BuildRequires:	netcdf-devel >= 3.0
+BuildRequires:	t1lib-devel
 Requires:	pdflib >= 3.0
 Requires:	zlib >= 1.0.3
 Requires:	libpng >= 0.9.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define _prefix /usr/X11R6
-%define _mandir %{_prefix}/man
-%define _docdir /usr/share/doc
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 
 %description
 Grace is a Motif application for two-dimensional data visualization.
@@ -60,36 +61,40 @@ do publikacji.
 	--enable-editres \
 	--enable-extra-incpath=$PKG_BUILD_DIR/include \
 	--enable-extra-ldpath=$PKG_BUILD_DIR/lib \
-	--enable-debug
+	--disable-debug
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_docdir}
+#install -d $RPM_BUILD_ROOT%{_docdir}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
-gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}/*.dat\
-	$RPM_BUILD_ROOT%{_docdir}/%{name}/*.agr\
-	$RPM_BUILD_ROOT%{_docdir}/%{name}/mygraph.png\
-	$RPM_BUILD_ROOT%{_docdir}/%{name}/shiftdata.sh\
-	$RPM_BUILD_ROOT%{_docdir}/%{name}/examples/*
+#rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
+rm -f $RPM_BUILD_ROOT%{_datadir}/grace/doc/{*.sgml,*.dvi,*.1} \
+	$RPM_BUILD_ROOT%{_datadir}/grace/examples/dotest
+
+gzip -9nf $RPM_BUILD_ROOT%{_datadir}/grace/doc/*.dat \
+	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.agr \
+	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.sh
+
+#gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}/*.dat\
+#	$RPM_BUILD_ROOT%{_docdir}/%{name}/*.agr\
+#	$RPM_BUILD_ROOT%{_docdir}/%{name}/shiftdata.sh\
+#	$RPM_BUILD_ROOT%{_docdir}/%{name}/examples/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
+%docdir %{_datadir}/grace/doc
+%docdir %{_datadir}/grace/examples
+%{_datadir}/grace/doc
+%{_datadir}/grace/examples
 %dir %{_sysconfdir}/grace
+
 %config(noreplace) %verify(not size, mtime, md5) %{_sysconfdir}/grace/*
-%doc /usr/share/doc/grace/*.html
-%doc /usr/share/doc/grace/*.dat.gz
-%doc /usr/share/doc/grace/*.agr.gz
-%doc /usr/share/doc/grace/mygraph.png.gz
-%doc /usr/share/doc/grace/philosophical-gnu-sm.jpg
-%doc /usr/share/doc/grace/shiftdata.sh.gz
-%doc /usr/share/doc/grace/examples/*
 %attr(755,root,root)%{_bindir}/*
 %{_libdir}/grace
 %{_includedir}/*

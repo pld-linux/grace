@@ -73,8 +73,8 @@ diff -urN grace-5.1.2/doc/Makefile grace-DESTDIR/doc/Makefile
 -	cd $(GRACE_HOME)/doc; \
 -	for i in $(MANLINKS); do $(RM) $$i; $(LN_S) $(GRACEMAN) $$i; done
 -
-+	$(MKINSTALLDIRS) $(DESTDIR)/usr/share/doc/grace/
-+	for i in $?; do $(INSTALL_DATA) $$i $(DESTDIR)/usr/share/doc/grace/; done
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/doc/
++	for i in $?; do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/doc/; done
 +	$(MKINSTALLDIRS) $(DESTDIR)$(MANDIR)/man1
 +	$(INSTALL_DATA) $(GRACEMAN) $(DESTDIR)$(MANDIR)/man1/$(GRACEMAN)
  links : $(MANPAGES)
@@ -90,9 +90,9 @@ diff -urN grace-5.1.2/examples/Makefile grace-DESTDIR/examples/Makefile
 -	$(MKINSTALLDIRS) $(GRACE_HOME)/examples
 -	for i in $(EXAMPLES); do $(INSTALL_DATA) $$i $(GRACE_HOME)/examples; done
 -	$(INSTALL_PROGRAM) $(DOTEST) $(GRACE_HOME)/examples/$(DOTEST)
-+	$(MKINSTALLDIRS) $(DESTDIR)/usr/share/doc/grace/examples
-+	for i in $(EXAMPLES); do $(INSTALL_DATA) $$i $(DESTDIR)/usr/share/doc/grace/examples; done
-+	$(INSTALL_PROGRAM) $(DOTEST) $(DESTDIR)/usr/share/doc/grace/examples/$(DOTEST)
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/examples
++	for i in $(EXAMPLES); do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/examples; done
++	$(INSTALL_PROGRAM) $(DOTEST) $(DESTDIR)$(DATADIR)/grace/examples/$(DOTEST)
  
  links : dummy
  
