@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Grace
+Comment=Numerical data processing and visualisation tool
+Comment[pl]=Narzędzie do numerycznej obróbki i wizualizacji danych
+Icon=
+Exec=xmgrace
+Terminal=1
+Type=Application
+# vi: encoding=utf-8
