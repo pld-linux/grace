@@ -2,7 +2,7 @@ Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl):	Narzêdzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
 Version:	5.1.2
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -12,6 +12,7 @@ Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-HOME-ETC.patch
 Patch2:		%{name}-PDFlib.patch
 Patch3:		%{name}-etc.patch
+Patch4:		%{name}-fontsdir.patch
 URL:		http://plasma-gate.weizmann.ac.il/Grace/
 BuildRequires:	fftw-devel
 BuildRequires:	libjpeg-devel
@@ -24,9 +25,11 @@ BuildRequires:	Xbae-devel
 BuildRequires:	XmHTML-devel >= 1.1.5
 BuildRequires:	netcdf-devel >= 3.0
 BuildRequires:	t1lib-devel
+BuildRequires:	autoconf
 Requires:	pdflib >= 3.0
 Requires:	zlib >= 1.0.3
 Requires:	libpng >= 0.9.6
+Requires:	ghostscript-fonts-std
 Obsoletes:	xmgr
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,9 +58,12 @@ do publikacji.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
-%configure2_13 \
+cp -f ac-tools/configure.in .
+autoconf
+%configure \
 	--enable-grace-home=%{_datadir}/%{name} \
 	--enable-editres \
 	--enable-extra-incpath=$PKG_BUILD_DIR/include \
@@ -96,4 +102,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/grace/auxiliary
 %dir %{_datadir}/grace/templates
 %config(noreplace) %verify(not size, mtime, md5) %{_datadir}/grace/templates/*
-%{_datadir}/grace/fonts
+%dir %{_datadir}/grace/fonts
+%{_datadir}/grace/fonts/enc
+%{_datadir}/grace/fonts/FontDataBase

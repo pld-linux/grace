@@ -1,0 +1,17 @@
+--- grace-5.1.2/src/t1fonts.c.orig	Mon Jul 17 00:55:24 2000
++++ grace-5.1.2/src/t1fonts.c	Wed Oct 10 21:47:52 2001
+@@ -60,12 +60,8 @@
+     FILE *fd;
+     
+     /* Set search paths: */
+-    bufp = grace_path("fonts/type1");
+-    if (bufp == NULL) {
+-        return (RETURN_FAILURE);
+-    }
+-    T1_SetFileSearchPath(T1_PFAB_PATH, bufp);
+-    T1_SetFileSearchPath(T1_AFM_PATH, bufp);
++    T1_SetFileSearchPath(T1_PFAB_PATH, "/usr/share/fonts/Type1");
++    T1_SetFileSearchPath(T1_AFM_PATH, "/usr/share/fonts/Type1/afm");
+     bufp = grace_path("fonts/enc");
+     if (bufp == NULL) {
+         return (RETURN_FAILURE);
