@@ -11,6 +11,22 @@ Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
 URL:		http://plasma-gate.weizmann.ac.il/Grace/	
 Patch0:		%{name}-DESTDIR.patch
+Patch1:		%{name}-HOME-ETC.patch
+Patch2:		%{name}-PDFlib.patch
+Patch3:		%{name}-FFTW.patch
+BuildRequires:	fftw-devel
+BuildRequires:	zlib-devel >= 1.0.3
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel >= 0.9.6
+BuildRequires:	libtiff-devel
+BuildRequires:	pdflib-devel >= 3.0
+BuildRequires:	lesstif-devel
+BuildRequires:	XFree86-devel
+BuildRequires:	Xbae-devel
+BuildRequires:	xpm-devel
+Requires:	pdflib >= 3.0
+Requires:	zlib >= 1.0.3
+Requires:	libpng >= 0.9.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define _prefix /usr/X11R6
@@ -36,6 +52,9 @@ do publikacji.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 %configure 	--enable-grace-home=%{_datadir}/%{name} \
