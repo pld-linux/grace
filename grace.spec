@@ -1,17 +1,16 @@
 Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl):	Narzêdzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
-Version:	5.1.2
-Release:	4
+Version:	5.1.9
+Release:	2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
-Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-HOME-ETC.patch
-Patch2:		%{name}-PDFlib.patch
-Patch3:		%{name}-etc.patch
-Patch4:		%{name}-fontsdir.patch
-Patch5:		%{name}-ac25x.patch
+Patch0:		%{name}-FHS.patch
+Patch1:		%{name}-home_etc.patch
+Patch2:		%{name}-etc.patch
+Patch3:		%{name}-fontsdir.patch
+Patch4:		%{name}-ac25x.patch
 URL:		http://plasma-gate.weizmann.ac.il/Grace/
 BuildRequires:	XFree86-devel
 BuildRequires:	Xbae-devel
@@ -23,11 +22,11 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 0.9.6
 BuildRequires:	libtiff-devel
 BuildRequires:	netcdf-devel >= 3.0
-BuildRequires:	pdflib-devel >= 3.0
+BuildRequires:	pdflib-devel >= 4.0.3
 BuildRequires:	t1lib-devel
 Requires:	ghostscript-fonts-std
 Requires:	libpng >= 0.9.6
-Requires:	pdflib >= 3.0
+Requires:	pdflib >= 4.0.3
 Requires:	zlib >= 1.0.3
 Obsoletes:	xmgr
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -58,15 +57,11 @@ do publikacji.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 cp -f ac-tools/configure.in .
-autoconf
-if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
-	CPPFLAGS="`pkg-config libpng12 --cflags`"
-fi
-%configure CPPFLAGS="$CPPFLAGS" \
+%{__autoconf}
+%configure \
 	--enable-grace-home=%{_datadir}/%{name} \
 	--enable-editres \
 	--enable-extra-incpath=$PKG_BUILD_DIR/include \
@@ -96,9 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/grace/doc
 %{_datadir}/grace/examples
 %dir %{_sysconfdir}/grace
-
 %config(noreplace) %verify(not size, mtime, md5) %{_sysconfdir}/grace/*
 %attr(755,root,root)%{_bindir}/*
+%{_mandir}/man1/*
 %{_libdir}/grace
 %{_includedir}/*
 %dir %{_datadir}/grace
