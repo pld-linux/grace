@@ -27,6 +27,7 @@ BuildRequires:	t1lib-devel
 Requires:	pdflib >= 3.0
 Requires:	zlib >= 1.0.3
 Requires:	libpng >= 0.9.6
+Obsoletes:	xmgr
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
