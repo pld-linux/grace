@@ -2,10 +2,11 @@ Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl):	Narzêdzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
 Version:	5.1.9
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
+Source1:	%{name}.desktop
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-etc.patch
@@ -69,6 +70,10 @@ cp -f ac-tools/configure.in .
 	%{!?debug:--disable-debug}
 %{__make}
 
+gzip -9nf $RPM_BUILD_ROOT%{_datadir}/grace/doc/*.dat \
+	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.agr \
+	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.sh
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -77,9 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_datadir}/grace/doc/{*.sgml,*.dvi,*.1} \
 	$RPM_BUILD_ROOT%{_datadir}/grace/examples/dotest
 
-gzip -9nf $RPM_BUILD_ROOT%{_datadir}/grace/doc/*.dat \
-	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.agr \
-	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.sh
+install -d $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Plotting
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Plotting/%{name}.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
