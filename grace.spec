@@ -8,11 +8,11 @@ Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
-URL:		http://plasma-gate.weizmann.ac.il/Grace/	
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-HOME-ETC.patch
 Patch2:		%{name}-PDFlib.patch
 Patch3:		%{name}-FFTW.patch
+URL:		http://plasma-gate.weizmann.ac.il/Grace/
 BuildRequires:	fftw-devel
 BuildRequires:	zlib-devel >= 1.0.3
 BuildRequires:	libjpeg-devel
@@ -22,7 +22,6 @@ BuildRequires:	pdflib-devel >= 3.0
 BuildRequires:	lesstif-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	Xbae-devel
-BuildRequires:	xpm-devel
 Requires:	pdflib >= 3.0
 Requires:	zlib >= 1.0.3
 Requires:	libpng >= 0.9.6
@@ -66,24 +65,24 @@ do publikacji.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_docdir}
 
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
+
 rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
-gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}/*.html\
-	$RPM_BUILD_ROOT%{_docdir}/%{name}/*.dat\
+gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}/*.dat\
 	$RPM_BUILD_ROOT%{_docdir}/%{name}/*.agr\
 	$RPM_BUILD_ROOT%{_docdir}/%{name}/mygraph.png\
 	$RPM_BUILD_ROOT%{_docdir}/%{name}/shiftdata.sh\
 	$RPM_BUILD_ROOT%{_docdir}/%{name}/examples/*
 
 %clean
+rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not size, mtime, md5) %{_sysconfdir}/grace/*
-%doc /usr/share/doc/grace/*.html.gz
+%doc /usr/share/doc/grace/*.html
 %doc /usr/share/doc/grace/*.dat.gz
 %doc /usr/share/doc/grace/*.agr.gz
 %doc /usr/share/doc/grace/mygraph.png.gz
