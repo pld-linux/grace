@@ -17,6 +17,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	Xbae-devel
 BuildRequires:	XmHTML-devel >= 1.1.5
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	fftw-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 0.9.6
@@ -56,6 +57,7 @@ do publikacji.
 %patch3 -p1
 
 %build
+cp -f /usr/share/automake/config.* ac-tools
 cp -f ac-tools/configure.in .
 %{__autoconf}
 %configure \
