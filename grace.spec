@@ -84,7 +84,7 @@ gzip -9nf $RPM_BUILD_ROOT%{_datadir}/grace/doc/*.dat \
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files 
+%files
 %defattr(644,root,root,755)
 %docdir %{_datadir}/grace/doc
 %docdir %{_datadir}/grace/examples
