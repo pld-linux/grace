@@ -72,7 +72,8 @@ cp -f ac-tools/configure.in .
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_datadir}/grace/doc/{*.sgml,*.dvi,*.1} \
 	$RPM_BUILD_ROOT%{_datadir}/grace/examples/dotest
@@ -95,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/grace/examples
 %dir %{_sysconfdir}/grace
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/grace/*
-%attr(755,root,root)%{_bindir}/*
+%attr(755,root,root) %{_bindir}/*
 %{_mandir}/man1/*
 %{_libdir}/grace
 %{_includedir}/*
