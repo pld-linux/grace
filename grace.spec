@@ -33,7 +33,6 @@ Requires:	zlib >= 1.0.3
 Obsoletes:	xmgr
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-
 %description
 Grace is a Motif application for two-dimensional data visualization.
 Grace can transform the data using free equations, FFT, cross- and
@@ -95,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/grace/doc
 %{_datadir}/grace/examples
 %dir %{_sysconfdir}/grace
-%config(noreplace) %verify(not size, mtime, md5) %{_sysconfdir}/grace/*
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/grace/*
 %attr(755,root,root)%{_bindir}/*
 %{_mandir}/man1/*
 %{_libdir}/grace
@@ -103,7 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/grace
 %{_datadir}/grace/auxiliary
 %dir %{_datadir}/grace/templates
-%config(noreplace) %verify(not size, mtime, md5) %{_datadir}/grace/templates/*
+%config(noreplace) %verify(not size mtime md5) %{_datadir}/grace/templates/*
 %dir %{_datadir}/grace/fonts
 %{_datadir}/grace/fonts/enc
 %{_datadir}/grace/fonts/FontDataBase
