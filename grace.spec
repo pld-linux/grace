@@ -61,7 +61,7 @@ do publikacji.
 	--enable-editres \
 	--enable-extra-incpath=$PKG_BUILD_DIR/include \
 	--enable-extra-ldpath=$PKG_BUILD_DIR/lib \
-	--disable-debug
+	%{!?debug:--disable-debug}
 %{__make}
 
 %install
