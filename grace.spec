@@ -69,7 +69,7 @@ tar -xzf $RPM_SOURCE_DIR/fftw.tar.gz
 %build
 %configure
 
-make
+%{__make}
 
 cd ..
 rm -rf gd1.3 fftw-1.3
@@ -77,7 +77,7 @@ rm -rf gd1.3 fftw-1.3
 	--enable-editres \
 	--enable-extra-incpath=$PKG_BUILD_DIR/include \
 	--enable-extra-ldpath=$PKG_BUILD_DIR/lib --enable-debug
-make
+%{__make}
 cd src
 rm xmgrace
 `make -n xmgrace | grep '^gcc' | head -1 | \
