@@ -7,7 +7,7 @@ License:	GPL
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-HOME-ETC.patch
+Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-PDFlib.patch
 Patch3:		%{name}-etc.patch
 Patch4:		%{name}-fontsdir.patch
