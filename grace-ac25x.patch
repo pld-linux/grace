@@ -1,0 +1,13 @@
+--- grace-5.1.2/ac-tools/configure.in.orig	Sun Apr 28 11:28:51 2002
++++ grace-5.1.2/ac-tools/configure.in	Sun Apr 28 11:30:48 2002
+@@ -625,8 +625,8 @@
+   LIBS="$GUI_LIBS $NOGUI_LIBS"
+ 
+   dnl **** and some - Xpm lib
+-  AC_CHECK_LIB(Xpm,main,GUI_LIBS="-lXpm $GUI_LIBS"; AC_DEFINE(HAVE_XPM)
+-                 AC_CHECK_HEADERS(xpm.h X11/xpm.h))
++  AC_CHECK_LIB(Xpm,main,[GUI_LIBS="-lXpm $GUI_LIBS"; AC_DEFINE(HAVE_XPM)
++                 AC_CHECK_HEADERS(xpm.h X11/xpm.h)])
+ 
+   ACX_RESTORE_STATE
+ 

@@ -2,7 +2,7 @@ Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl):	Narzêdzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
 Version:	5.1.2
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
@@ -11,23 +11,24 @@ Patch1:		%{name}-HOME-ETC.patch
 Patch2:		%{name}-PDFlib.patch
 Patch3:		%{name}-etc.patch
 Patch4:		%{name}-fontsdir.patch
+Patch5:		%{name}-ac25x.patch
 URL:		http://plasma-gate.weizmann.ac.il/Grace/
-BuildRequires:	fftw-devel
-BuildRequires:	libjpeg-devel
-BuildRequires:	libpng-devel >= 0.9.6
-BuildRequires:	libtiff-devel
-BuildRequires:	pdflib-devel >= 3.0
-BuildRequires:	lesstif-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	Xbae-devel
 BuildRequires:	XmHTML-devel >= 1.1.5
-BuildRequires:	netcdf-devel >= 3.0
-BuildRequires:	t1lib-devel
 BuildRequires:	autoconf
+BuildRequires:	fftw-devel
+BuildRequires:	lesstif-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel >= 0.9.6
+BuildRequires:	libtiff-devel
+BuildRequires:	netcdf-devel >= 3.0
+BuildRequires:	pdflib-devel >= 3.0
+BuildRequires:	t1lib-devel
+Requires:	ghostscript-fonts-std
+Requires:	libpng >= 0.9.6
 Requires:	pdflib >= 3.0
 Requires:	zlib >= 1.0.3
-Requires:	libpng >= 0.9.6
-Requires:	ghostscript-fonts-std
 Obsoletes:	xmgr
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -57,11 +58,15 @@ do publikacji.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 cp -f ac-tools/configure.in .
 autoconf
-%configure \
+if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
+	CPPFLAGS="`pkg-config libpng12 --cflags`"
+fi
+%configure CPPFLAGS="$CPPFLAGS" \
 	--enable-grace-home=%{_datadir}/%{name} \
 	--enable-editres \
 	--enable-extra-incpath=$PKG_BUILD_DIR/include \
