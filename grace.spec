@@ -4,9 +4,8 @@ Name:		grace
 Version:	5.1.2
 Release:	1
 License:	GPL
-Vendor:		PLD
 Group:		Applications/Math
-######		/scratch/pele/PLD/builder/rpm/SOURCES/rpm.groups: no such file
+Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
 URL:		http://plasma-gate.weizmann.ac.il/Grace/	
@@ -57,15 +56,12 @@ do publikacji.
 %patch3 -p1
 
 %build
-%configure 	--enable-grace-home=%{_datadir}/%{name} \
-		--mandir=%{_mandir}\
-		--libdir=%{_libdir}\
-		--includedir=%{_includedir}\
-		--bindir=%{_bindir}\
-		--datadir=%{_datadir}\
-		--enable-editres \
-		--enable-extra-incpath=$PKG_BUILD_DIR/include \
-		--enable-extra-ldpath=$PKG_BUILD_DIR/lib --enable-debug
+%configure \
+	--enable-grace-home=%{_datadir}/%{name} \
+	--enable-editres \
+	--enable-extra-incpath=$PKG_BUILD_DIR/include \
+	--enable-extra-ldpath=$PKG_BUILD_DIR/lib \
+	--enable-debug
 %{__make}
 
 %install
@@ -75,13 +71,12 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_docdir}
 
 rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
-gzip -9nf 	$RPM_BUILD_ROOT%{_mandir}/man*/* \
-		$RPM_BUILD_ROOT%{_docdir}/%{name}/*.html\
-		$RPM_BUILD_ROOT%{_docdir}/%{name}/*.dat\
-		$RPM_BUILD_ROOT%{_docdir}/%{name}/*.agr\
-		$RPM_BUILD_ROOT%{_docdir}/%{name}/mygraph.png\
-		$RPM_BUILD_ROOT%{_docdir}/%{name}/shiftdata.sh\
-		$RPM_BUILD_ROOT%{_docdir}/%{name}/examples/*
+gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}/*.html\
+	$RPM_BUILD_ROOT%{_docdir}/%{name}/*.dat\
+	$RPM_BUILD_ROOT%{_docdir}/%{name}/*.agr\
+	$RPM_BUILD_ROOT%{_docdir}/%{name}/mygraph.png\
+	$RPM_BUILD_ROOT%{_docdir}/%{name}/shiftdata.sh\
+	$RPM_BUILD_ROOT%{_docdir}/%{name}/examples/*
 
 %clean
 
