@@ -66,22 +66,15 @@ do publikacji.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-#install -d $RPM_BUILD_ROOT%{_docdir}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
 rm -f $RPM_BUILD_ROOT%{_datadir}/grace/doc/{*.sgml,*.dvi,*.1} \
 	$RPM_BUILD_ROOT%{_datadir}/grace/examples/dotest
 
 gzip -9nf $RPM_BUILD_ROOT%{_datadir}/grace/doc/*.dat \
 	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.agr \
 	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.sh
-
-#gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}/*.dat\
-#	$RPM_BUILD_ROOT%{_docdir}/%{name}/*.agr\
-#	$RPM_BUILD_ROOT%{_docdir}/%{name}/shiftdata.sh\
-#	$RPM_BUILD_ROOT%{_docdir}/%{name}/examples/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
