@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+use File::Basename;
+
+$grhome =$ENV{GRACE_HOME};
+$grhome ="/usr/X11R6/lib/X11/grace" if "$grhome" eq "";
+$dynamic = "$grhome" . "/bin/xmgrace.dynamic";
+$semistatic = "$grhome" . "/bin/xmgrace.semistatic";
+$basename = basename($0);
+if (-x "$dynamic") {
+    exec $dynamic $basename, @ARGV;
+} elsif (-x "$semistatic") {
+    exec $semistatic $basename, @ARGV;
+} else {
+    die "ERROR: Can't find any grace executable in $grhome/bin\n";
+}

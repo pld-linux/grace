@@ -1,0 +1,8 @@
+--- grace-5.0.0/auxiliary/fdf2fit.orig	Wed Jul 15 08:45:44 1998
++++ grace-5.0.0/auxiliary/fdf2fit	Wed Jul 15 08:46:14 1998
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl
++#!/usr/bin/perl
+ # fdf2fit - script to convert Origin-4 .fdf fit parameter files to ACE/gr's
+ # Version 0.3
+ # Author Yu. V. Ralchenko <fnralch@plasma-gate.weizmann.ac.il>
