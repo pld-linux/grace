@@ -32,8 +32,6 @@ Requires:	zlib >= 1.0.3
 Obsoletes:	xmgr
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 
 %description
 Grace is a Motif application for two-dimensional data visualization.
