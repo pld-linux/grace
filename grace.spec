@@ -1,18 +1,17 @@
 Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl):	Narzêdzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
-Version:	5.1.12
+Version:	5.1.13
 Release:	1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
-# Source0-md5:	d54d1b57edd8daf6f10ac5563a552130
+# Source0-md5:	bc12e2bc373c7ecd6c8d51857a9858dc
 Source1:	%{name}.desktop
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-etc.patch
 Patch3:		%{name}-fontsdir.patch
-Patch4:		%{name}-t1lib.patch
 URL:		http://plasma-gate.weizmann.ac.il/Grace/
 BuildRequires:	XFree86-devel
 BuildRequires:	Xbae-devel
@@ -42,7 +41,7 @@ tool for data inspection, data transformation, and and for making
 figures for publications.
 
 %description -l pl
-Grace jest Motiffow± aplikacj± s³u¿±c± do dwuwymiarowej wizualizacji
+Grace jest motifow± aplikacj± s³u¿±c± do dwuwymiarowej wizualizacji
 danych. Mo¿e przekszta³caæ dane za pomoc± wolnych równañ, FFT,
 autokorelacji, ró¿niczek, ca³ek, histogramów itd. Powsta³e wykresy
 maj± wysok± jako¶æ. Grace jest bardzo u¿ytecznym narzêdziem je¶li
@@ -55,7 +54,6 @@ do publikacji.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
 cp -f ac-tools/configure.in .
