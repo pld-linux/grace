@@ -1,0 +1,198 @@
+diff -Nur grace-5.1.9.orig/Makefile grace-5.1.9/Makefile
+--- grace-5.1.9.orig/Makefile	Sat Jun 22 13:40:18 2002
++++ grace-5.1.9/Makefile	Sun Aug 11 01:09:39 2002
+@@ -13,15 +13,15 @@
+ 
+ install : subdirs
+ 	@set -e; for i in $(SUBDIRS); do (cd $$i; $(MAKE) install) || exit 1; done
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)
+-	@if test -f $(DESTDIR)$(GRACE_HOME)/gracerc; then \
+-		echo "	$(DESTDIR)$(GRACE_HOME)/gracerc exists"; \
+-		echo "	Installing only $(DESTDIR)$(GRACE_HOME)/gracerc.sample"; \
+-		$(INSTALL_DATA) gracerc $(DESTDIR)$(GRACE_HOME)/gracerc.sample; \
++	$(MKINSTALLDIRS) $(DESTDIR)/etc/grace
++	@if test -f $(DESTDIR)/etc/grace/gracerc; then \
++		echo "	$(DESTDIR)/etc/grace/gracerc exists"; \
++		echo "	Installing only $(DESTDIR)/etc/grace/gracerc.sample"; \
++		$(INSTALL_DATA) gracerc $(DESTDIR)/etc/grace/gracerc.sample; \
+ 	else \
+-		$(INSTALL_DATA) gracerc $(DESTDIR)$(GRACE_HOME); \
++		$(INSTALL_DATA) gracerc $(DESTDIR)/etc/grace; \
+ 	fi
+-	$(INSTALL_DATA) gracerc.user $(DESTDIR)$(GRACE_HOME)
++	$(INSTALL_DATA) gracerc.user $(DESTDIR)/etc/grace
+ 
+ tests : subdirs
+ 	@set -e; for i in $(SUBDIRS); do (cd $$i; $(MAKE) tests) || exit 1; done
+diff -Nur grace-5.1.9.orig/ac-tools/Make.conf.in grace-5.1.9/ac-tools/Make.conf.in
+--- grace-5.1.9.orig/ac-tools/Make.conf.in	Sun Feb 20 01:49:12 2000
++++ grace-5.1.9/ac-tools/Make.conf.in	Sun Aug 11 01:10:17 2002
+@@ -22,6 +22,21 @@
+ # Location of the Grace home
+ GRACE_HOME=@GRACE_HOME@
+ 
++# Data Dir
++DATADIR=@datadir@
++
++# Man pages
++MANDIR=@mandir@
++
++# LIB DIR
++LIBDIR=@libdir@
++
++# INCLUDE DIR
++INCLUDEDIR=@includedir@
++
++# BIN DIR
++BINDIR=@bindir@
++
+ # Relocatable that contains alloca()
+ ALLOCA=@ALLOCA@
+ 
+diff -Nur grace-5.1.9.orig/auxiliary/Makefile grace-5.1.9/auxiliary/Makefile
+--- grace-5.1.9.orig/auxiliary/Makefile	Sat Jun 22 13:40:21 2002
++++ grace-5.1.9/auxiliary/Makefile	Sun Aug 11 01:11:51 2002
+@@ -25,10 +25,10 @@
+ 	$(CC) $(CFLAGS0) $(CPPFLAGS) -o $@ convcal.c $(NOGUI_LIBS)
+ 
+ install : $(AUXILIARIES) $(PROGRAMS) $(SCRIPTS)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/auxiliary
+-	for i in $(AUXILIARIES); do $(INSTALL_DATA) $$i $(DESTDIR)$(GRACE_HOME)/auxiliary; done
+-	for i in $(PROGRAMS); do $(INSTALL_PROGRAM) -s $$i $(DESTDIR)$(GRACE_HOME)/bin; done
+-	for i in $(SCRIPTS); do $(INSTALL_PROGRAM) $$i $(DESTDIR)$(GRACE_HOME)/bin; done
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/auxiliary $(DESTDIR)$(BINDIR)
++	for i in $(AUXILIARIES); do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/auxiliary; done
++	for i in $(PROGRAMS); do $(INSTALL_PROGRAM)  $$i $(DESTDIR)$(BINDIR); done
++	for i in $(SCRIPTS); do $(INSTALL_PROGRAM) $$i $(DESTDIR)$(BINDIR); done
+ 
+ tests : dummy
+ 
+diff -Nur grace-5.1.9.orig/doc/Makefile grace-5.1.9/doc/Makefile
+--- grace-5.1.9.orig/doc/Makefile	Sat Jun 22 13:40:21 2002
++++ grace-5.1.9/doc/Makefile	Sun Aug 11 01:15:28 2002
+@@ -85,10 +85,10 @@
+ 	$(RM) $(DVIDOCS) $(PSDOCS) $(PDFDOCS) $(HTMLDOCS)
+ 
+ install : $(HTMLS) $(HTMLDOCS) $(DVIDOCS) $(TUTDATA) $(MANPAGES)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/doc
+-	for i in $?; do $(INSTALL_DATA) $$i $(DESTDIR)$(GRACE_HOME)/doc; done
+-	cd $(DESTDIR)$(GRACE_HOME)/doc; \
+-	for i in $(MANLINKS); do $(RM) $$i; $(LN_S) $(GRACEMAN) $$i; done
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/doc $(DESTDIR)$(MANDIR)/man1
++	for i in $?; do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/doc; done
++	install $(MANPAGES) $(DESTDIR)$(MANDIR)/man1
++	for i in $(MANLINKS); do echo ".so $(GRACEMAN)" > $(DESTDIR)$(MANDIR)/man1/$$i; done
+ 
+ $(DESTDIR)$(GRACE_HOME)/doc/grace.1 : $(MANPAGES)
+ 	$(MAKE) install
+diff -Nur grace-5.1.9.orig/examples/Makefile grace-5.1.9/examples/Makefile
+--- grace-5.1.9.orig/examples/Makefile	Sat Jun 22 13:40:21 2002
++++ grace-5.1.9/examples/Makefile	Sun Aug 11 01:16:12 2002
+@@ -31,9 +31,9 @@
+ devclean : dummy
+ 
+ install : $(EXAMPLES) $(DOTEST)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/examples
+-	for i in $(EXAMPLES); do $(INSTALL_DATA) $$i $(DESTDIR)$(GRACE_HOME)/examples; done
+-	$(INSTALL_PROGRAM) $(DOTEST) $(DESTDIR)$(GRACE_HOME)/examples/$(DOTEST)
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/examples
++	for i in $(EXAMPLES); do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/examples; done
++	$(INSTALL_PROGRAM) $(DOTEST) $(DESTDIR)$(DATADIR)/grace/examples/$(DOTEST)
+ 
+ links : dummy
+ 
+diff -Nur grace-5.1.9.orig/fonts/Makefile grace-5.1.9/fonts/Makefile
+--- grace-5.1.9.orig/fonts/Makefile	Sat Jun 22 13:40:21 2002
++++ grace-5.1.9/fonts/Makefile	Sun Aug 11 01:17:21 2002
+@@ -54,13 +54,13 @@
+ devclean : dummy
+ 
+ install : $(FONTS) $(AFMS) $(ENCODINGS)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/fonts
+-	$(INSTALL_DATA) $(FONTDATABASE) $(DESTDIR)$(GRACE_HOME)/fonts
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/fonts/type1
+-	for i in $(FONTS); do $(INSTALL_DATA) $$i $(DESTDIR)$(GRACE_HOME)/fonts/type1; done
+-	for i in $(AFMS); do $(INSTALL_DATA) $$i $(DESTDIR)$(GRACE_HOME)/fonts/type1; done
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/fonts/enc
+-	for i in $(ENCODINGS); do $(INSTALL_DATA) $$i $(DESTDIR)$(GRACE_HOME)/fonts/enc; done
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/fonts
++	$(INSTALL_DATA) $(FONTDATABASE) $(DESTDIR)$(DATADIR)/grace/fonts
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/fonts/type1
++	for i in $(FONTS); do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/fonts/type1; done
++	for i in $(AFMS); do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/fonts/type1; done
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/fonts/enc
++	for i in $(ENCODINGS); do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/fonts/enc; done
+ 
+ links : dummy
+ 
+diff -Nur grace-5.1.9.orig/grace_np/Makefile grace-5.1.9/grace_np/Makefile
+--- grace-5.1.9.orig/grace_np/Makefile	Sat Jun 22 13:40:21 2002
++++ grace-5.1.9/grace_np/Makefile	Sun Aug 11 01:18:07 2002
+@@ -45,10 +45,10 @@
+ testf_np$(O) : $(LIB)
+ 
+ install : $(LIB)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/lib
+-	$(INSTALL_DATA) $(LIB) $(DESTDIR)$(GRACE_HOME)/lib/$(LIB)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/include
+-	$(INSTALL_DATA) grace_np.h $(DESTDIR)$(GRACE_HOME)/include/grace_np.h
++	$(MKINSTALLDIRS) $(DESTDIR)$(LIBDIR)/grace
++	$(INSTALL_DATA) $(LIB) $(DESTDIR)$(LIBDIR)/grace/$(LIB)
++	$(MKINSTALLDIRS) $(DESTDIR)$(INCLUDEDIR)
++	$(INSTALL_DATA) grace_np.h $(DESTDIR)$(INCLUDEDIR)/grace_np.h
+ 
+ $(DESTDIR)$(GRACE_HOME)/lib/$(LIB) : $(LIB)
+ 	$(MAKE) install
+diff -Nur grace-5.1.9.orig/grconvert/Makefile grace-5.1.9/grconvert/Makefile
+--- grace-5.1.9.orig/grconvert/Makefile	Sat Jun 22 13:40:21 2002
++++ grace-5.1.9/grconvert/Makefile	Sun Aug 11 01:18:26 2002
+@@ -41,8 +41,8 @@
+ 	$(RM) $(PROG) $(OBJS)
+ 
+ install : $(PROG)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/bin
+-	$(INSTALL_PROGRAM) -s $(PROG) $(DESTDIR)$(GRACE_HOME)/bin/$(PROG)
++	$(MKINSTALLDIRS) $(DESTDIR)$(BINDIR)
++	$(INSTALL_PROGRAM) -s $(PROG) $(DESTDIR)$(BINDIR)/$(PROG)
+ 
+ dummy :
+ 
+diff -Nur grace-5.1.9.orig/src/Makefile grace-5.1.9/src/Makefile
+--- grace-5.1.9.orig/src/Makefile	Sat Jun 22 13:40:21 2002
++++ grace-5.1.9/src/Makefile	Sun Aug 11 01:19:09 2002
+@@ -59,9 +59,9 @@
+ 
+ 
+ install : $(GRACE)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/bin
+-	$(INSTALL_PROGRAM) -s $(GRACE) $(DESTDIR)$(GRACE_HOME)/bin/$(GRACE)
+-	cd $(DESTDIR)$(GRACE_HOME)/bin; $(RM) $(GRBATCH); $(LN_S) $(GRACE) $(GRBATCH)
++	$(MKINSTALLDIRS) $(DESTDIR)$(BINDIR)
++	$(INSTALL_PROGRAM) $(GRACE) $(DESTDIR)$(BINDIR)/$(GRACE)
++	cd $(DESTDIR)$(BINDIR); $(RM) $(GRBATCH); $(LN_S) $(GRACE) $(GRBATCH)
+ 
+ tests : dummy
+ 
+diff -Nur grace-5.1.9.orig/templates/Makefile grace-5.1.9/templates/Makefile
+--- grace-5.1.9.orig/templates/Makefile	Sat Jun 22 13:40:21 2002
++++ grace-5.1.9/templates/Makefile	Sun Aug 11 01:19:55 2002
+@@ -20,13 +20,13 @@
+ devclean : dummy
+ 
+ install : $(DEFAULT_AGR)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/templates
+-	@if test -f $(DESTDIR)$(GRACE_HOME)/templates/$(DEFAULT_AGR); then \
+-		echo "	$(DESTDIR)$(GRACE_HOME)/templates/$(DEFAULT_AGR) exists"; \
+-		echo "	Installing only $(DESTDIR)$(GRACE_HOME)/templates/$(DEFAULT_AGR).sample"; \
+-		$(INSTALL_DATA) $(DEFAULT_AGR) $(DESTDIR)$(GRACE_HOME)/templates/$(DEFAULT_AGR).sample; \
++	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/templates
++	@if test -f $(DESTDIR)$(DATADIR)/grace/templates/$(DEFAULT_AGR); then \
++		echo "	$(DESTDIR)$(DATADIR)/grace/templates/$(DEFAULT_AGR) exists"; \
++		echo "	Installing only $(DESTDIR)$(DATADIR)/grace/templates/$(DEFAULT_AGR).sample"; \
++		$(INSTALL_DATA) $(DEFAULT_AGR) $(DESTDIR)$(DATADIR)/grace/templates/$(DEFAULT_AGR).sample; \
+ 	else \
+-		$(INSTALL_DATA) $(DEFAULT_AGR) $(DESTDIR)$(GRACE_HOME)/templates/$(DEFAULT_AGR); \
++		$(INSTALL_DATA) $(DEFAULT_AGR) $(DESTDIR)$(DATADIR)/grace/templates/$(DEFAULT_AGR); \
+ 	fi
+ 
+ links : dummy
