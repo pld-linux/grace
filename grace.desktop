@@ -7,4 +7,5 @@ Exec=xmgrace
 Terminal=false
 Type=Application
 Encoding=UTF-8
+Categories=Science;X-Plotting;
 # vi: encoding=utf-8
