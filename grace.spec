@@ -81,6 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
+%dir %{_sysconfdir}/grace
 %config(noreplace) %verify(not size, mtime, md5) %{_sysconfdir}/grace/*
 %doc /usr/share/doc/grace/*.html
 %doc /usr/share/doc/grace/*.dat.gz
@@ -92,6 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root)%{_bindir}/*
 %{_libdir}/grace
 %{_includedir}/*
-%{_datadir}/grace/auxiliary/*
+%dir %{_datadir}/grace
+%{_datadir}/grace/auxiliary
+%dir %{_datadir}/grace/templates
 %config(noreplace) %verify(not size, mtime, md5) %{_datadir}/grace/templates/*
-%{_datadir}/grace/fonts/*
+%{_datadir}/grace/fonts
