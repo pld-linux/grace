@@ -1,0 +1,72 @@
+diff -urN grace-5.1.2/src/main.c grace-5.1.2-HOME-ETC/src/main.c
+--- grace-5.1.2/src/main.c	Mon Aug 14 00:53:13 2000
++++ grace-5.1.2-HOME-ETC/src/main.c	Thu Dec  7 14:56:29 2000
+@@ -32,6 +32,12 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <string.h>
++
++/* ETC-HOME support for PLD */
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <errno.h>
++
+ #ifdef HAVE_FCNTL_H
+ #  include <fcntl.h>
+ #endif
+@@ -76,7 +82,8 @@
+ 
+ int main(int argc, char *argv[])
+ {
+-    char *s;
++    char *s, *config_file;
++    struct stat statb;
+     int i, j;
+     int gno;
+     int fd;
+@@ -223,9 +230,43 @@
+     /* default is POSIX */
+     set_locale_num(FALSE);
+     
++    /* HOME-ETC support for PLD */
++    config_file = (char *) malloc(sizeof(char) * GR_MAXPATHLEN);
++    if ((s = getenv("CONFIG_DIR")) != NULL) {
++      strncpy(config_file, getenv("HOME"), GR_MAXPATHLEN - 1);
++      if (s[0] == '~')
++	strncat(config_file, s+1, GR_MAXPATHLEN - strlen(config_file) - 1);
++      else {     
++	strncat(config_file, "/", GR_MAXPATHLEN - strlen(config_file) - 1);
++	strncat(config_file, s, GR_MAXPATHLEN - strlen(config_file) - 1);
++      }
++      if (config_file[strlen(s) - 1] == '/')
++	config_file[strlen(s) - 1] = 0;
++      if (stat(config_file, &statb) != -1) {
++	strncat(config_file, "/gracerc", GR_MAXPATHLEN - strlen(config_file) - 1);
++	if (stat(config_file, &statb) == -1) {
++	  if (stat("gracerc", &statb) != -1) {
++	    if (rename("gracerc", config_file) == -1) {
++	      fprintf(stderr, "Couldn't create file %s: %s\n", config_file, strerror(errno));
++	      strcpy(config_file, "gracerc");
++	    }
++	    else
++	      fprintf(stderr, "Moved config file 'gracerc' to %s.\n", config_file);
++	  }
++	  else
++	    strcpy(config_file, "gracerc");
++	}
++      }
++      else
++	strcpy(config_file, "gracerc");
++    }
++    else
++      strcpy(config_file, "gracerc");
++    
+     /* load startup file */
+-    getparms("gracerc");
+-
++    getparms(config_file);
++    free(config_file);
++    
+     /* load default template */
+     new_project(NULL);
+ 
