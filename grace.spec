@@ -1,8 +1,8 @@
 Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl):	Narzêdzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
-Version:	5.1.9
-Release:	3
+Version:	5.1.12
+Release:	1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/%{name}-%{version}.tar.gz
@@ -11,7 +11,7 @@ Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-etc.patch
 Patch3:		%{name}-fontsdir.patch
-Patch4:		%{name}-ac25x.patch
+Patch4:		%{name}-t1lib.patch
 URL:		http://plasma-gate.weizmann.ac.il/Grace/
 BuildRequires:	XFree86-devel
 BuildRequires:	Xbae-devel
@@ -24,7 +24,7 @@ BuildRequires:	libpng-devel >= 0.9.6
 BuildRequires:	libtiff-devel
 BuildRequires:	netcdf-devel >= 3.0
 BuildRequires:	pdflib-devel >= 4.0.3
-BuildRequires:	t1lib-devel
+BuildRequires:	t1lib-devel >= 5.0.0
 Requires:	ghostscript-fonts-std
 Requires:	libpng >= 0.9.6
 Requires:	pdflib >= 4.0.3
@@ -65,12 +65,9 @@ cp -f ac-tools/configure.in .
 	--enable-editres \
 	--enable-extra-incpath=$PKG_BUILD_DIR/include \
 	--enable-extra-ldpath=$PKG_BUILD_DIR/lib \
+	--without-bundled-xbae \
 	%{!?debug:--disable-debug}
 %{__make}
-
-gzip -9nf $RPM_BUILD_ROOT%{_datadir}/grace/doc/*.dat \
-	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.agr \
-	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.sh
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -82,6 +79,10 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/grace/doc/{*.sgml,*.dvi,*.1} \
 
 install -d $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Plotting
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Plotting/%{name}.desktop
+
+gzip -9nf $RPM_BUILD_ROOT%{_datadir}/grace/doc/*.dat \
+	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.agr \
+	$RPM_BUILD_ROOT%{_datadir}/grace/doc/*.sh
 
 %clean
 rm -rf $RPM_BUILD_ROOT
