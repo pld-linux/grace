@@ -57,7 +57,7 @@ do publikacji.
 %patch3 -p1
 
 %build
-%configure \
+%configure2_13 \
 	--enable-grace-home=%{_datadir}/%{name} \
 	--enable-editres \
 	--enable-extra-incpath=$PKG_BUILD_DIR/include \
