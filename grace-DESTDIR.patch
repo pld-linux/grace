@@ -1,6 +1,6 @@
-diff -urN grace-5.1.1/Makefile grace-DESTDIR/Makefile
---- grace-5.1.1/Makefile	Tue Apr  4 00:36:00 2000
-+++ grace-DESTDIR/Makefile	Mon Aug 28 19:20:22 2000
+diff -urN grace-5.1.2/Makefile grace-DESTDIR/Makefile
+--- grace-5.1.2/Makefile	Wed Aug  2 22:10:50 2000
++++ grace-DESTDIR/Makefile	Tue Nov 28 16:43:13 2000
 @@ -13,15 +13,9 @@
  
  install : subdirs
@@ -20,9 +20,9 @@ diff -urN grace-5.1.1/Makefile grace-DESTDIR/Makefile
  
  tests : subdirs
  	@set -e; for i in $(SUBDIRS); do (cd $$i; $(MAKE) tests) || exit 1; done
-diff -urN grace-5.1.1/ac-tools/Make.conf.in grace-DESTDIR/ac-tools/Make.conf.in
---- grace-5.1.1/ac-tools/Make.conf.in	Sun Feb 20 01:49:12 2000
-+++ grace-DESTDIR/ac-tools/Make.conf.in	Mon Aug 28 19:50:46 2000
+diff -urN grace-5.1.2/ac-tools/Make.conf.in grace-DESTDIR/ac-tools/Make.conf.in
+--- grace-5.1.2/ac-tools/Make.conf.in	Sun Feb 20 00:49:12 2000
++++ grace-DESTDIR/ac-tools/Make.conf.in	Tue Nov 28 16:43:13 2000
 @@ -22,6 +22,21 @@
  # Location of the Grace home
  GRACE_HOME=@GRACE_HOME@
@@ -45,9 +45,9 @@ diff -urN grace-5.1.1/ac-tools/Make.conf.in grace-DESTDIR/ac-tools/Make.conf.in
  # Relocatable that contains alloca()
  ALLOCA=@ALLOCA@
  
-diff -urN grace-5.1.1/auxiliary/Makefile grace-DESTDIR/auxiliary/Makefile
---- grace-5.1.1/auxiliary/Makefile	Sun Dec 26 00:20:47 1999
-+++ grace-DESTDIR/auxiliary/Makefile	Mon Aug 28 19:59:02 2000
+diff -urN grace-5.1.2/auxiliary/Makefile grace-DESTDIR/auxiliary/Makefile
+--- grace-5.1.2/auxiliary/Makefile	Sat Dec 25 23:20:47 1999
++++ grace-DESTDIR/auxiliary/Makefile	Tue Nov 28 16:43:13 2000
 @@ -24,9 +24,9 @@
  	$(CC) $(CFLAGS0) $(CPPFLAGS) -o $@ convcal.c $(NOGUI_LIBS)
  
@@ -61,13 +61,13 @@ diff -urN grace-5.1.1/auxiliary/Makefile grace-DESTDIR/auxiliary/Makefile
  
  tests : dummy
  
-diff -urN grace-5.1.1/doc/Makefile grace-DESTDIR/doc/Makefile
---- grace-5.1.1/doc/Makefile	Tue Jun 20 22:32:53 2000
-+++ grace-DESTDIR/doc/Makefile	Mon Aug 28 21:36:30 2000
-@@ -79,11 +79,10 @@
- 	$(RM) $(DVIDOCS) $(PSDOCS)
+diff -urN grace-5.1.2/doc/Makefile grace-DESTDIR/doc/Makefile
+--- grace-5.1.2/doc/Makefile	Mon Aug 21 21:53:19 2000
++++ grace-DESTDIR/doc/Makefile	Tue Nov 28 16:43:13 2000
+@@ -82,11 +82,10 @@
+ 	$(RM) $(DVIDOCS) $(PSDOCS) $(PDFDOCS) $(HTMLDOCS)
  
- install : $(HTMLDOCS) $(DVIDOCS) $(TUTDATA) $(MANPAGES)
+ install : $(HTMLS) $(HTMLDOCS) $(DVIDOCS) $(TUTDATA) $(MANPAGES)
 -	$(MKINSTALLDIRS) $(GRACE_HOME)/doc
 -	for i in $?; do $(INSTALL_DATA) $$i $(GRACE_HOME)/doc; done
 -	cd $(GRACE_HOME)/doc; \
@@ -80,9 +80,9 @@ diff -urN grace-5.1.1/doc/Makefile grace-DESTDIR/doc/Makefile
  links : $(MANPAGES)
  	$(MKINSTALLDIRS) $(PREFIX)/man
  	$(MKINSTALLDIRS) $(PREFIX)/man/man1
-diff -urN grace-5.1.1/examples/Makefile grace-DESTDIR/examples/Makefile
---- grace-5.1.1/examples/Makefile	Mon Jun 26 23:19:01 2000
-+++ grace-DESTDIR/examples/Makefile	Mon Aug 28 21:44:50 2000
+diff -urN grace-5.1.2/examples/Makefile grace-DESTDIR/examples/Makefile
+--- grace-5.1.2/examples/Makefile	Mon Jun 26 21:19:01 2000
++++ grace-DESTDIR/examples/Makefile	Tue Nov 28 16:43:13 2000
 @@ -31,9 +31,9 @@
  devclean : dummy
  
@@ -96,9 +96,9 @@ diff -urN grace-5.1.1/examples/Makefile grace-DESTDIR/examples/Makefile
  
  links : dummy
  
-diff -urN grace-5.1.1/fonts/Makefile grace-DESTDIR/fonts/Makefile
---- grace-5.1.1/fonts/Makefile	Wed Mar 29 04:34:37 2000
-+++ grace-DESTDIR/fonts/Makefile	Mon Aug 28 20:05:20 2000
+diff -urN grace-5.1.2/fonts/Makefile grace-DESTDIR/fonts/Makefile
+--- grace-5.1.2/fonts/Makefile	Wed Mar 29 02:34:37 2000
++++ grace-DESTDIR/fonts/Makefile	Tue Nov 28 16:43:13 2000
 @@ -54,13 +54,13 @@
  devclean : dummy
  
@@ -120,9 +120,9 @@ diff -urN grace-5.1.1/fonts/Makefile grace-DESTDIR/fonts/Makefile
  
  links : dummy
  
-diff -urN grace-5.1.1/grace_np/Makefile grace-DESTDIR/grace_np/Makefile
---- grace-5.1.1/grace_np/Makefile	Sun Apr  2 16:14:57 2000
-+++ grace-DESTDIR/grace_np/Makefile	Mon Aug 28 20:50:34 2000
+diff -urN grace-5.1.2/grace_np/Makefile grace-DESTDIR/grace_np/Makefile
+--- grace-5.1.2/grace_np/Makefile	Sun Apr  2 14:14:57 2000
++++ grace-DESTDIR/grace_np/Makefile	Tue Nov 28 16:43:13 2000
 @@ -45,10 +45,10 @@
  testf_np$(O) : $(LIB)
  
@@ -138,9 +138,9 @@ diff -urN grace-5.1.1/grace_np/Makefile grace-DESTDIR/grace_np/Makefile
  
  links : $(GRACE_HOME)/lib/$(LIB) $(GRACE_HOME)/include/grace_np.h
  	$(MKINSTALLDIRS) $(PREFIX)/lib
-diff -urN grace-5.1.1/grconvert/Makefile grace-DESTDIR/grconvert/Makefile
---- grace-5.1.1/grconvert/Makefile	Sat Sep 11 03:31:49 1999
-+++ grace-DESTDIR/grconvert/Makefile	Mon Aug 28 19:44:27 2000
+diff -urN grace-5.1.2/grconvert/Makefile grace-DESTDIR/grconvert/Makefile
+--- grace-5.1.2/grconvert/Makefile	Sat Sep 11 01:31:49 1999
++++ grace-DESTDIR/grconvert/Makefile	Tue Nov 28 16:43:13 2000
 @@ -41,8 +41,8 @@
  	$(RM) $(PROG) $(OBJS)
  
@@ -152,9 +152,9 @@ diff -urN grace-5.1.1/grconvert/Makefile grace-DESTDIR/grconvert/Makefile
  
  dummy :
  
-diff -urN grace-5.1.1/src/Makefile grace-DESTDIR/src/Makefile
---- grace-5.1.1/src/Makefile	Wed May 17 21:01:33 2000
-+++ grace-DESTDIR/src/Makefile	Mon Aug 28 19:35:35 2000
+diff -urN grace-5.1.2/src/Makefile grace-DESTDIR/src/Makefile
+--- grace-5.1.2/src/Makefile	Wed May 17 19:01:33 2000
++++ grace-DESTDIR/src/Makefile	Tue Nov 28 16:43:13 2000
 @@ -59,9 +59,9 @@
  
  
@@ -168,9 +168,9 @@ diff -urN grace-5.1.1/src/Makefile grace-DESTDIR/src/Makefile
  
  tests : dummy
  
-diff -urN grace-5.1.1/templates/Makefile grace-DESTDIR/templates/Makefile
---- grace-5.1.1/templates/Makefile	Fri May 21 01:57:28 1999
-+++ grace-DESTDIR/templates/Makefile	Mon Aug 28 20:06:39 2000
+diff -urN grace-5.1.2/templates/Makefile grace-DESTDIR/templates/Makefile
+--- grace-5.1.2/templates/Makefile	Thu May 20 23:57:28 1999
++++ grace-DESTDIR/templates/Makefile	Tue Nov 28 16:43:13 2000
 @@ -20,14 +20,8 @@
  devclean : dummy
  
