@@ -1,0 +1,42 @@
+diff -urN grace-5.1.2/configure grace-5.1.2-FFTW/configure
+--- grace-5.1.2/configure	Sun Sep 10 14:14:00 2000
++++ grace-5.1.2-FFTW/configure	Thu Dec  7 01:36:37 2000
+@@ -58,7 +58,7 @@
+ ac_help="$ac_help
+   --with-netcdf-libraries=OBJ  use OBJ as netCDF libraries [-lnetcdf]"
+ ac_help="$ac_help
+-  --with-fftw-library=OBJ      use OBJ as FFTW library [-lfftw]"
++  --with-fftw-library=OBJ      use OBJ as FFTW library [-ldfftw]"
+ ac_help="$ac_help
+   --with-zlib-library=OBJ      use OBJ as ZLIB library [-lz]"
+ ac_help="$ac_help
+@@ -7300,7 +7300,7 @@
+ 
+   if test "x$fftw_library" = "x"
+   then
+-    fftw_library=-lfftw
++    fftw_library=-ldfftw
+   fi
+ 
+   echo $ac_n "checking "for FFTW"""... $ac_c" 1>&6
+@@ -7324,7 +7324,7 @@
+     cat > conftest.$ac_ext <<EOF
+ #line 7326 "configure"
+ #include "confdefs.h"
+-#include <fftw.h>
++#include <dfftw.h>
+ int main() {
+ main();
+ ; return 0; }
+diff -urN grace-5.1.2/src/fourier.c grace-5.1.2-FFTW/src/fourier.c
+--- grace-5.1.2/src/fourier.c	Tue Jun  6 02:16:00 2000
++++ grace-5.1.2-FFTW/src/fourier.c	Thu Dec  7 01:35:33 2000
+@@ -230,7 +230,7 @@
+ #else
+ /* Start of new FFTW-based transforms by Marcus H. Mendenhall */
+ 
+-#include <fftw.h>
++#include <dfftw.h>
+ #include <string.h>
+ 
+ static char  *wisdom_file=0;
