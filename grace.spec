@@ -93,7 +93,7 @@ cd ..
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_prefix}/X11R6/bin
-make PREFIX=$RPM_BUILD_ROOT%{_prefix}/X11R6 \
+%{__make} PREFIX=$RPM_BUILD_ROOT%{_prefix}/X11R6 \
 GRACE_HOME=$RPM_BUILD_ROOT%{_prefix}/X11R6/lib/X11/grace \
      install
 strip $RPM_BUILD_ROOT%{_prefix}/X11R6/lib/X11/grace/bin/xmgrace
