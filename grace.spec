@@ -19,6 +19,13 @@ generated figures are of high quality. Grace is a very convenient tool for
 data inspection, data transformation, and and for making figures for
 publications.
 
+%description -l pl
+Grace jest Motiffow± aplikacj± s³u¿±c± do dwuwymiarowej wizualizacji danych.
+Mo¿e przejszta³caæ dane za pomoc± wolnych równañ, FFT, autokorelacji,
+ró¿niczek, ca³ek, histogramów itd. Powsta³e wykresy maj± wysok± jako¶æ.
+Grace jest bardzo u¿ytecznym narzêdziem je¶li chodzi o monitorowanie i
+transformacjê danych oraz tworzenie wykresów do publikacji.
+
 %package dynamic
 Group:		Applications/Math
 Summary:	Numerical Data Processing and Visualization Tool (grace)
