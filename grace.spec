@@ -42,7 +42,7 @@ figures for publications.
 
 %description -l pl
 Grace jest Motiffow± aplikacj± s³u¿±c± do dwuwymiarowej wizualizacji
-danych. Mo¿e przejszta³caæ dane za pomoc± wolnych równañ, FFT,
+danych. Mo¿e przekszta³caæ dane za pomoc± wolnych równañ, FFT,
 autokorelacji, ró¿niczek, ca³ek, histogramów itd. Powsta³e wykresy
 maj± wysok± jako¶æ. Grace jest bardzo u¿ytecznym narzêdziem je¶li
 chodzi o monitorowanie i transformacjê danych oraz tworzenie wykresów
@@ -91,7 +91,7 @@ gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}/*.html\
 %doc /usr/share/doc/grace/shiftdata.sh.gz
 %doc /usr/share/doc/grace/examples/*
 %attr(755,root,root)%{_bindir}/*
-%{_libdir}/grace/*
+%{_libdir}/grace
 %{_includedir}/*
 %{_datadir}/grace/auxiliary/*
 %config(noreplace) %verify(not size, mtime, md5) %{_datadir}/grace/templates/*
