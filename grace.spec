@@ -107,3 +107,4 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/grace/fonts
 %{_datadir}/grace/fonts/enc
 %{_datadir}/grace/fonts/FontDataBase
+%{_applnkdir}/Scientific/Plotting/*
