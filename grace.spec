@@ -1,5 +1,5 @@
 Summary:	Numerical Data Processing and Visualization Tool (grace)
-Summary(pl):	Narzêdzie do numerycznej obróbki i wizualizacji danych
+Summary(pl.UTF-8):   NarzÄ™dzie do numerycznej obrÃ³bki i wizualizacji danych
 Name:		grace
 Version:	5.1.20
 Release:	1
@@ -41,12 +41,12 @@ The generated figures are of high quality. Grace is a very convenient
 tool for data inspection, data transformation, and and for making
 figures for publications.
 
-%description -l pl
-Grace jest motifow± aplikacj± s³u¿±c± do dwuwymiarowej wizualizacji
-danych. Mo¿e przekszta³caæ dane za pomoc± wolnych równañ, FFT,
-autokorelacji, ró¿niczek, ca³ek, histogramów itd. Powsta³e wykresy
-maj± wysok± jako¶æ. Grace jest bardzo u¿ytecznym narzêdziem je¶li
-chodzi o monitorowanie i transformacjê danych oraz tworzenie wykresów
+%description -l pl.UTF-8
+Grace jest motifowÄ… aplikacjÄ… sÅ‚uÅ¼Ä…cÄ… do dwuwymiarowej wizualizacji
+danych. MoÅ¼e przeksztaÅ‚caÄ‡ dane za pomocÄ… wolnych rÃ³wnaÅ„, FFT,
+autokorelacji, rÃ³Å¼niczek, caÅ‚ek, histogramÃ³w itd. PowstaÅ‚e wykresy
+majÄ… wysokÄ… jakoÅ›Ä‡. Grace jest bardzo uÅ¼ytecznym narzÄ™dziem jeÅ›li
+chodzi o monitorowanie i transformacjÄ™ danych oraz tworzenie wykresÃ³w
 do publikacji.
 
 %prep
