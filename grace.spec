@@ -1,5 +1,5 @@
 Summary:	Numerical Data Processing and Visualization Tool (grace)
-Summary(pl.UTF-8):   Narzędzie do numerycznej obróbki i wizualizacji danych
+Summary(pl.UTF-8):	Narzędzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
 Version:	5.1.20
 Release:	1
