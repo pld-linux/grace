@@ -1,19 +1,18 @@
 Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl.UTF-8):	Narzędzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
-Version:	5.1.20
+Version:	5.1.21
 Release:	1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/stable/%{name}-%{version}.tar.gz
-# Source0-md5:	37bdb28b9e30b8e5061ed3f8e0ab9168
+# Source0-md5:	db02dee3c68179c41452e652bd469bb9
 Source1:	%{name}.desktop
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-etc.patch
 Patch3:		%{name}-fontsdir.patch
 URL:		http://plasma-gate.weizmann.ac.il/Grace/
-BuildRequires:	XFree86-devel
 BuildRequires:	Xbae-devel
 BuildRequires:	XmHTML-devel >= 1.1.5
 BuildRequires:	autoconf
@@ -26,6 +25,7 @@ BuildRequires:	motif-devel >= 1.2
 BuildRequires:	netcdf-devel >= 3.0
 BuildRequires:	pdflib-devel >= 4.0.3
 BuildRequires:	t1lib-devel >= 5.0.0
+BuildRequires:	xorg-xserver-server-devel
 Requires:	ghostscript-fonts-std
 Requires:	libpng >= 0.9.6
 Requires:	pdflib >= 4.0.3
@@ -42,12 +42,12 @@ tool for data inspection, data transformation, and and for making
 figures for publications.
 
 %description -l pl.UTF-8
-Grace jest motifową aplikacją służącą do dwuwymiarowej wizualizacji
-danych. Może przekształcać dane za pomocą wolnych równań, FFT,
-autokorelacji, różniczek, całek, histogramów itd. Powstałe wykresy
-mają wysoką jakość. Grace jest bardzo użytecznym narzędziem jeśli
-chodzi o monitorowanie i transformację danych oraz tworzenie wykresów
-do publikacji.
+Grace jest motifową aplikacją służącą do dwuwymiarowej
+wizualizacji danych. Może przekształcać dane za pomocą wolnych
+równań, FFT, autokorelacji, różniczek, całek, histogramów itd.
+Powstałe wykresy mają wysoką jakość. Grace jest bardzo
+użytecznym narzędziem jeśli chodzi o monitorowanie i transformację
+danych oraz tworzenie wykresów do publikacji.
 
 %prep
 %setup -q
