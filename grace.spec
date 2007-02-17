@@ -17,17 +17,20 @@ BuildRequires:	Xbae-devel
 BuildRequires:	XmHTML-devel >= 1.1.5
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	fftw-devel
+BuildRequires:	fftw-devel >= 2.1.3
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 0.9.6
 BuildRequires:	libtiff-devel
 BuildRequires:	motif-devel >= 1.2
 BuildRequires:	netcdf-devel >= 3.0
-BuildRequires:	pdflib-devel >= 4.0.3
+#BuildRequires:	pdflib-devel >= 5.0.0
 BuildRequires:	t1lib-devel >= 5.0.0
+BuildRequires:	xorg-lib-libXmu-devel
+BuildRequires:	xorg-lib-libXpm-devel
+BuildRequires:	xorg-lib-libXt-devel
 Requires:	ghostscript-fonts-std
 Requires:	libpng >= 0.9.6
-Requires:	pdflib >= 4.0.3
+#Requires:	pdflib >= 5.0.0
 Requires:	zlib >= 1.0.3
 Obsoletes:	xmgr
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
