@@ -25,7 +25,6 @@ BuildRequires:	motif-devel >= 1.2
 BuildRequires:	netcdf-devel >= 3.0
 BuildRequires:	pdflib-devel >= 4.0.3
 BuildRequires:	t1lib-devel >= 5.0.0
-BuildRequires:	xorg-xserver-server-devel
 Requires:	ghostscript-fonts-std
 Requires:	libpng >= 0.9.6
 Requires:	pdflib >= 4.0.3
