@@ -42,12 +42,12 @@ tool for data inspection, data transformation, and and for making
 figures for publications.
 
 %description -l pl.UTF-8
-Grace jest motifową aplikacją służącą do dwuwymiarowej
-wizualizacji danych. Może przekształcać dane za pomocą wolnych
-równań, FFT, autokorelacji, różniczek, całek, histogramów itd.
-Powstałe wykresy mają wysoką jakość. Grace jest bardzo
-użytecznym narzędziem jeśli chodzi o monitorowanie i transformację
-danych oraz tworzenie wykresów do publikacji.
+Grace jest motifową aplikacją służącą do dwuwymiarowej wizualizacji
+danych. Może przekształcać dane za pomocą wolnych równań, FFT,
+autokorelacji, różniczek, całek, histogramów itd. Powstałe wykresy
+mają wysoką jakość. Grace jest bardzo użytecznym narzędziem jeśli
+chodzi o monitorowanie i transformację danych oraz tworzenie wykresów
+do publikacji.
 
 %prep
 %setup -q
