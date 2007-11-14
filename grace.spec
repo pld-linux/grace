@@ -28,7 +28,7 @@ BuildRequires:	t1lib-devel >= 5.0.0
 BuildRequires:	xorg-lib-libXmu-devel
 BuildRequires:	xorg-lib-libXpm-devel
 BuildRequires:	xorg-lib-libXt-devel
-Requires:	ghostscript-fonts-std
+Requires:	fonts-Type1-urw
 Requires:	libpng >= 0.9.6
 #Requires:	pdflib >= 5.0.0
 Requires:	zlib >= 1.0.3
