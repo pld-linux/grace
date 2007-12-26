@@ -6,6 +6,5 @@ Icon=
 Exec=xmgrace
 Terminal=false
 Type=Application
-Encoding=UTF-8
 Categories=Motif;Education;Science;X-Plotting;
 # vi: encoding=utf-8
