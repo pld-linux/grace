@@ -20,7 +20,6 @@ BuildRequires:	automake
 BuildRequires:	fftw-devel >= 2.1.3
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 0.9.6
-BuildRequires:	libtiff-devel
 BuildRequires:	motif-devel >= 1.2
 BuildRequires:	netcdf-devel >= 3.0
 #BuildRequires:	pdflib-devel >= 5.0.0
