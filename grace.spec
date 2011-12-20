@@ -2,7 +2,7 @@ Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl.UTF-8):	Narzędzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
 Version:	5.1.22
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/stable/%{name}-%{version}.tar.gz
