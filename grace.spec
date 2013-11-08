@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Narzędzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
 Version:	5.1.23
 Release:	1
-License:	GPL
+License:	GPL v2+
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/stable/%{name}-%{version}.tar.gz
 # Source0-md5:	e2b28ebe31288952d899fbb5c97858ae
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_datadir}/grace/doc/{*.sgml,*.dvi,*.1} \
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/grace/doc/{*.dvi,*.1} \
 	$RPM_BUILD_ROOT%{_datadir}/grace/examples/dotest
 
 install -D %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
@@ -97,11 +97,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/grace/doc
 %{_datadir}/grace/examples
 %dir %{_sysconfdir}/grace
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/grace/*
-%attr(755,root,root) %{_bindir}/*
-%{_mandir}/man1/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/grace/gracerc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/grace/gracerc.user
+%attr(755,root,root) %{_bindir}/convcal
+%attr(755,root,root) %{_bindir}/fdf2fit
+%attr(755,root,root) %{_bindir}/gracebat
+%attr(755,root,root) %{_bindir}/grconvert
+%attr(755,root,root) %{_bindir}/xmgrace
+%{_mandir}/man1/convcal.1*
+%{_mandir}/man1/grace.1*
+%{_mandir}/man1/gracebat.1*
+%{_mandir}/man1/grconvert.1*
+%{_mandir}/man1/xmgrace.1*
 %{_libdir}/grace
-%{_includedir}/*
+%{_includedir}/grace_np.h
 %dir %{_datadir}/grace
 %{_datadir}/grace/auxiliary
 %dir %{_datadir}/grace/templates
@@ -110,4 +119,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/grace/fonts/enc
 %{_datadir}/grace/fonts/type1
 %{_datadir}/grace/fonts/FontDataBase
-%{_desktopdir}/*.desktop
+%{_desktopdir}/grace.desktop
