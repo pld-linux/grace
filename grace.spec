@@ -1,12 +1,12 @@
 Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl.UTF-8):	Narzędzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
-Version:	5.1.23
-Release:	3
+Version:	5.1.25
+Release:	1
 License:	GPL v2+
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/stable/%{name}-%{version}.tar.gz
-# Source0-md5:	e2b28ebe31288952d899fbb5c97858ae
+# Source0-md5:	c0482b1f18b113192946a96f5ff35a4d
 Source1:	%{name}.desktop
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-home_etc.patch
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/grace/doc/{*.dvi,*.1} \
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/grace/doc/*.1 \
 	$RPM_BUILD_ROOT%{_datadir}/grace/examples/dotest
 
 install -D %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop

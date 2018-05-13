@@ -67,19 +67,15 @@ diff -Nur grace-5.1.9.orig/auxiliary/Makefile grace-5.1.9/auxiliary/Makefile
  
  tests : dummy
  
-diff -Nur grace-5.1.9.orig/doc/Makefile grace-5.1.9/doc/Makefile
---- grace-5.1.9.orig/doc/Makefile	Sat Jun 22 13:40:21 2002
-+++ grace-5.1.9/doc/Makefile	Sun Aug 11 01:15:28 2002
-@@ -85,10 +85,10 @@
+--- grace-5.1.25/doc/Makefile.orig	2018-05-13 21:39:05.260435364 +0200
++++ grace-5.1.25/doc/Makefile	2018-05-13 21:40:37.127100982 +0200
+@@ -87,8 +87,10 @@
  	$(RM) $(DVIDOCS) $(PSDOCS) $(PDFDOCS) $(HTMLDOCS)
  
- install : $(HTMLS) $(HTMLDOCS) $(DVIDOCS) $(TUTDATA) $(MANPAGES)
+ install : $(HTMLS) $(HTMLDOCS) $(PDFDOCS) $(TUTDATA) $(MANPAGES)
 -	$(MKINSTALLDIRS) $(DESTDIR)$(GRACE_HOME)/doc
--	for i in $?; do $(INSTALL_DATA) $$i $(DESTDIR)$(GRACE_HOME)/doc; done
--	cd $(DESTDIR)$(GRACE_HOME)/doc; \
--	for i in $(MANLINKS); do $(RM) $$i; $(LN_S) $(GRACEMAN) $$i; done
 +	$(MKINSTALLDIRS) $(DESTDIR)$(DATADIR)/grace/doc $(DESTDIR)$(MANDIR)/man1
-+	for i in $?; do $(INSTALL_DATA) $$i $(DESTDIR)$(DATADIR)/grace/doc; done
+ 	for i in $?; do $(INSTALL_DATA) $$i $(DESTDIR)$(GRACE_HOME)/doc; done
 +	install $(MANPAGES) $(DESTDIR)$(MANDIR)/man1
 +	for i in $(MANLINKS); do echo ".so $(GRACEMAN)" > $(DESTDIR)$(MANDIR)/man1/$$i; done
  
