@@ -13,7 +13,7 @@ Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-etc.patch
 Patch3:		%{name}-fontsdir.patch
 Patch4:		source-hardening.diff
-URL:		http://plasma-gate.weizmann.ac.il/Grace/
+URL:		https://plasma-gate.weizmann.ac.il/Grace/
 BuildRequires:	Xbae-devel
 BuildRequires:	XmHTML-devel >= 1.1.5
 BuildRequires:	autoconf
