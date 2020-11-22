@@ -1,8 +1,12 @@
+#
+# Conditional build:
+%bcond_with	pdflib	# PDF driver (based on PDFlib, non-free)
+
 Summary:	Numerical Data Processing and Visualization Tool (grace)
 Summary(pl.UTF-8):	Narzędzie do numerycznej obróbki i wizualizacji danych
 Name:		grace
 Version:	5.1.25
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications/Math
 Source0:	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/stable/%{name}-%{version}.tar.gz
@@ -13,6 +17,7 @@ Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-etc.patch
 Patch3:		%{name}-fontsdir.patch
 Patch4:		source-hardening.diff
+Patch5:		%{name}-ac+tirpc.patch
 URL:		https://plasma-gate.weizmann.ac.il/Grace/
 BuildRequires:	Xbae-devel
 BuildRequires:	XmHTML-devel >= 1.1.5
@@ -21,16 +26,17 @@ BuildRequires:	automake
 BuildRequires:	fftw-devel >= 2.1.3
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 0.9.6
+BuildRequires:	libtirpc-devel
 BuildRequires:	motif-devel >= 1.2
 BuildRequires:	netcdf-devel >= 3.0
-#BuildRequires:	pdflib-devel >= 5.0.0
+%{?with_pdflib:BuildRequires:	pdflib-lite-devel >= 5.0.0}
 BuildRequires:	t1lib-devel >= 5.0.0
 BuildRequires:	xorg-lib-libXmu-devel
 BuildRequires:	xorg-lib-libXpm-devel
 BuildRequires:	xorg-lib-libXt-devel
 Requires:	fonts-Type1-urw
 Requires:	libpng >= 0.9.6
-#Requires:	pdflib >= 5.0.0
+%{?with_pdflib:Requires:	pdflib-lite >= 5.0.0}
 Requires:	zlib >= 1.0.3
 Obsoletes:	xmgr
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -58,18 +64,17 @@ do publikacji.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 cp -f /usr/share/automake/config.* ac-tools
-cp -f ac-tools/configure.in .
-%{__autoconf}
+%{__autoconf} ac-tools/configure.in > configure
 %configure \
-	--enable-grace-home=%{_datadir}/%{name} \
+	%{!?debug:--disable-debug} \
 	--enable-editres \
-	--enable-extra-incpath=$PKG_BUILD_DIR/include \
-	--enable-extra-ldpath=$PKG_BUILD_DIR/lib \
-	--without-bundled-xbae \
-	%{!?debug:--disable-debug}
+	--enable-grace-home=%{_datadir}/%{name} \
+	%{!?with_pdflib:--disable-pdfdrv} \
+	--without-bundled-xbae
 %{__make}
 
 %install

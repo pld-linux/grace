@@ -1,0 +1,26 @@
+--- grace-5.1.25/ac-tools/configure.in.orig	2020-11-16 22:05:32.498722746 +0100
++++ grace-5.1.25/ac-tools/configure.in	2020-11-22 07:51:32.951230746 +0100
+@@ -515,18 +515,21 @@
+ fi
+ 
+ dnl **** Check for XDR
+-AC_SEARCH_LIBS(xdrstdio_create, nsl rpc xdr rpclib, XDR_LIB=$mdw_cv_lib_xdrstdio_create, XDR_LIB="NONE")
++AC_SEARCH_LIBS(xdrstdio_create, tirpc nsl rpc xdr rpclib, XDR_LIB=$ac_res, XDR_LIB="NONE")
+ 
+ if test "${XDR_LIB}" = "NONE"; then
+   XDR_LIB=
+   AC_MSG_RESULT(--> No XDR library found; grconvert will not be built)
+ else
++  if test "${XDR_LIB}" = "-ltirpc"; then
++    CPPFLAGS="$CPPFLAGS -I/usr/include/tirpc"
++  fi
+   grconvert_dir="grconvert"
+ fi
+ 
+ dnl **** Check for dlopen() interface
+ dnl           (Linux, SunOS-[4,5], OSF, IRIX, AIX-4, UnixWare, ...)
+-AC_SEARCH_LIBS(dlopen, dl, [DL_LIB=$mdw_cv_lib_dlopen; AC_DEFINE(HAVE_DLOPEN)], DL_LIB="NONE")
++AC_SEARCH_LIBS(dlopen, dl, [DL_LIB=$ac_res; AC_DEFINE(HAVE_DLOPEN)], DL_LIB="NONE")
+ 
+ if test "${DL_LIB}" != "NONE"; then
+   dnl **** Old implementations of dlopen() don't have RTLD_NOW
